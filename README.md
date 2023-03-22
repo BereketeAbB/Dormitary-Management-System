@@ -1,6 +1,6 @@
 # Dormitary-Management-System
 
-A Campus Project that aims to simplify the **Dormitary Management System**
+##A mini Object based Java Programming program for **Dormitary Management System**
 
 It has four actors <br />
  +  **Student** <br />
