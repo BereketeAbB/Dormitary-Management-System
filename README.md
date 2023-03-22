@@ -8,6 +8,6 @@ It has four actors <br />
  +  **Proctor**<br />
  +  **Head Of Proctors**<br />
 
-![https://github.com/BereketeAbB/Dormitary-Management-System/blob/main/DMS.drawio.png]()
+![Diagram](https://github.com/BereketeAbB/Dormitary-Management-System/blob/main/DMS.drawio.png)
  ---
  **March 2015**
