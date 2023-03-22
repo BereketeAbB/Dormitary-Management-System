@@ -10,7 +10,7 @@ It has four actors <br />
 
 ![Diagram](https://github.com/BereketeAbB/Dormitary-Management-System/blob/main/DMS.drawio.png)
 
-# Classes
+# Functionalities
 **Student**
   + Logs in <br />
   + Registers <br />
