@@ -6,10 +6,13 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 
 /**
+ * DORMITARY MANAGEMENT SYSTEM
  * Student class extending Person
- *
- * @author bereketeab
+ *          Contains all methods and operations on Student Menu
+ * 
+ * @author GROUP ONE
  */
+
 public class Student extends Person {
     String studentId, department;
     int year;
@@ -25,13 +28,14 @@ public class Student extends Person {
     }
 
     void index(){
-        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        System.out.println("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+        System.out.println(" ");
         System.out.println("Choose and press the buttons to continue");
         System.out.println("1: Register");
         System.out.println("2: Check Building Status");
         System.out.println("3: Check Notification");
-        System.out.println("4: Request Proctor");
-        System.out.println("5: P2P Notificaiton");
+//        System.out.println("//4: Request Proctor");
+//        System.out.println("//5: P2P Notificaiton");
         System.out.println("9: SIGN OUT");
         System.out.println("0: Exit");
         
@@ -71,13 +75,11 @@ public class Student extends Person {
                 index();
                 break;
         }
-    }
-    
-
+    }    
     void register(){
 //            if (Proctor.regOpen == 0){
         if (Proctor.getReg() == 0){
-            System.out.println("Registration Closed. Please contact the Proctor newrby.");
+            System.out.println("Registration is currently closed. Please contact the Proctor newrby.");
             return;
         }
         try {
@@ -100,36 +102,35 @@ public class Student extends Person {
         } catch (IOException ex) {
             System.out.println("Register Error: " + ex);
         } 
-    }
-        
+    }        
     void checkStatus(){
         int reg, elec, wat;
-        reg = Proctor.regOpen;
-        elec = Proctor.electricity;
-        wat = Proctor.water;
+        reg = Proctor.BuildingStatus.regOpen;
+        elec = Proctor.BuildingStatus.electricity;
+        wat = Proctor.BuildingStatus.water;
         
         System.out.println("==========================");
         System.out.println("======Bulding Status======");
         System.out.println("==========================");
-        if (wat == 0) System.out.println("Water Unavailable");
-        else System.out.println("Water is Available");
+        if (wat == 0) System.out.println(">> Water          Unavailable");
+        else System.out.println(">> Water          Available");
         
-        if (elec == 0) System.out.println("Electricity Unavailable");
-        else System.out.println("Electricity is Available");
+        if (elec == 0) System.out.println(">> Electricity    Unavailable");
+        else System.out.println(">> Electricity    Available");
         
-        if (reg == 0) System.out.println("Registration Closed");
-        else System.out.println("Registration open");
+        if (reg == 0) System.out.println(">> Registration   Closed");
+        else System.out.println(">>Registration    Open");
         
         System.out.println("==========================");
         System.out.println("=========================="); 
         
     }
-
     void checkNotification(){
             
         try{
-            BufferedReader read = new BufferedReader(new FileReader(Proctor.notePath));
-            
+            BufferedReader read = new BufferedReader(new FileReader(Proctor.BuildingStatus.notePath));
+            System.out.println("Notifications:");
+            System.out.println("______________________________");
             while ((note = read.readLine()) != null){
                 System.out.println(note);
             }
@@ -138,8 +139,7 @@ public class Student extends Person {
             System.out.println("Reading Error");
         }
             
-    }
-    
+    }  
     void requestProctor(){
         System.out.println("On Dev");
         index();
