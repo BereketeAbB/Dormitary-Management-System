@@ -1,12 +1,12 @@
 package com.mycompany.dms;
-/*
-* Rough check of Authentication
-* Proctor Names are A, B and C with passwords 123A, 123A and 123A respectively.
-*
-* author: BereketeAb
-*/
 
-public class Authentication {
+/**
+ * DORMITARY MANAGEMENT SYSTEM
+ * A module which authenticates proctor's login.
+ * 
+ * @author GROUP ONE
+ */
+abstract public class Authentication {
      static String[] proctorsList = {"A", "B", "C"};
      static String[] proctorsPW = {"123A", "123A", "123A"};
      
