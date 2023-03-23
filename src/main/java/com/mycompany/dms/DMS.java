@@ -1,23 +1,18 @@
 package com.mycompany.dms;
 
-
 /**
- *
- * @author bereketeab
+ * DORMITARY MANAGEMENT SYSTEM
+ * Main function of the Project calling the Static UI to load the Menu.
+ * 
+ * @author GROUP ONE
+ * March, 2023
  */
+
 public class DMS {
  
     public static void main(String[] args) {
         
-        UI ui = new UI();
-        ui.login();
+        UI.login();
         
-//        Proctor B = new Proctor("MrX");
-////        B.sendNotification();
-//        B.index();
-//        
-//        Student S = new Student("StX", "DM12");
-//        S.checkStatus();
-
     }
 }
