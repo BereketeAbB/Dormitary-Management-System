@@ -3,30 +3,32 @@ package com.mycompany.dms;
 import java.util.Scanner;
 
 /**
- *	UI modules...
- *
+ * DORMITARY MANAGEMENT SYSTEM
+ * Landing UI Class
  * 
- * @author bereketeab
+ * @author GROUP ONE
  */
 
-public class UI {
-       
+abstract public class UI {
+     // An abstract public class which loads the landing page.
     static int logVal;
     static String studName, studID, procName, procID, procPW;
     
     static Scanner inp = new Scanner(System.in);
-
+    
   static void login(){
         System.out.println("- - - D O R M I T A R Y  M A N A G E M E N T  S Y S T E M  - - -");
         System.out.println("Welcome! >");
-        System.out.println("________________________");
+        System.out.println("This is a Student-Proctor Interaction program.");
+        System.out.println("Are you a student/proctor?");
         System.out.println("Enter 1: Studetnt");
         System.out.println("Enter 2: Proctor");
         System.out.println("Enter 3: Exit");
+        System.out.println("________________________");
         logVal = inp.nextInt();
         
         switch (logVal){
-            case 1:
+            case 1:         //Student
                 System.out.println("Enter your name. . .");
                 studName = inp.next();
                 System.out.println("Welcome " + studName + "!");
@@ -42,7 +44,7 @@ public class UI {
                 
                 break;
                 
-            case 2:
+            case 2:           //Proctor
                 System.out.println("Enter your name. . .");
                 procName = inp.next();
                 System.out.println("Welcome " + procName + "!, your ID Number please...");
@@ -58,9 +60,9 @@ public class UI {
                 login();
                 break;
                 
-            case 3:
+            case 3:         //Exit
                 break;
-            default: 
+            default:        //Invalid Input
                 System.out.println("Insert either 1 or 2");
                 login();
         }
