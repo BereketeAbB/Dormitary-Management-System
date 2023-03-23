@@ -3,50 +3,51 @@ package com.mycompany.dms;
 import java.util.Scanner;
 import java.io.*;
 import java.io.BufferedWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.BufferedReader;
 
 
 /**
- *
- * @author bereketeab
+ * DORMITARY MANAGEMENT SYSTEM
+ * Proctor class extending Person
+ *          Contains all methods and operations on Proctor Menu
+ * 
+ * @author GROUP ONE
  */
+
 public class Proctor extends Person {
     String proctorId;
-    String attendence;
-    String regTime;
-    String note;
-    String faultStudId; 
-    int faultType;
     
-    
+    abstract static class BuildingStatus {                              
+        static int regOpen = 0;
+        static int water = 0;
+        static int electricity = 0;
+
+        static String note;
+        static String MajFault;
+        static String faultStudId; 
+        static int counterNote;
+//        String proctorAvailable;
+
+        public static String notePath = "C:/Users/HP/OneDrive/Documents/NetBeansProjects/DMS/src/main/java/com/mycompany/dms/writeOutputs/Notifications.txt";
+        public static String majFPath = "C:/Users/HP/OneDrive/Documents/NetBeansProjects/DMS/src/main/java/com/mycompany/dms/writeOutputs/MajorFault.txt";
+        public static String minFPath = "C:/Users/HP/OneDrive/Documents/NetBeansProjects/DMS/src/main/java/com/mycompany/dms/writeOutputs/MinorFault.txt";
+    }
     //path of output files
     
-    public static String notePath = "C:/Users/HP/OneDrive/Documents/NetBeansProjects/DMS/src/main/java/com/mycompany/dms/writeOutputs/Notifications.txt";
-    public static String majFPath = "C:/Users/HP/OneDrive/Documents/NetBeansProjects/DMS/src/main/java/com/mycompany/dms/writeOutputs/MajorFault.txt";
-    public static String minFPath = "C:/Users/HP/OneDrive/Documents/NetBeansProjects/DMS/src/main/java/com/mycompany/dms/writeOutputs/MinorFault.txt";
     
     Scanner inp = new Scanner (System.in);          // Scanner Object
     
-    static int regOpen = 0;
-    static int water = 0;
-    static int electricity = 0;
    
     public static int getReg(){
-        return regOpen;
+        return BuildingStatus.regOpen;
     }
     public static int getElec(){
-        return electricity;
+        return BuildingStatus.electricity;
     }
     public static int getWat(){
-        return water;
+        return BuildingStatus.water;
     }
     
-    class BuildingStatus {                              
-        String water;
-        String proctorAvailable;
-        
-    }
    
     Proctor(String name, String procID){
         super(name);
@@ -68,8 +69,8 @@ public class Proctor extends Person {
         
         switch (indVal) {
             case 1:
-//                sendNotification();
-                System.out.println("On Dev.\n\n");
+                signAttendence();
+//                System.out.println("On Dev.\n\n");
                 index();
                 break;
             case 2:
@@ -98,7 +99,7 @@ public class Proctor extends Person {
     }
     
     void signAttendence() {
-        
+        System.out.println("Attendence Signed!");
     }
     
     void registerStudents(){
@@ -108,14 +109,15 @@ public class Proctor extends Person {
         
         switch(val){
         case 0:
-            regOpen = 0;
+            BuildingStatus.regOpen = 0;
             System.out.println("Registration is closed");
             index();
             break;
         
         case 1:
-            regOpen = 1;
-            System.out.println("Registration is Opened");
+            BuildingStatus.regOpen = 1;
+            
+            System.out.println(">>> You have opened the registration. Make sure to come and close it when the deadline ends.");
             index();
             break;
         
@@ -127,10 +129,10 @@ public class Proctor extends Person {
     void sendNotification(){
         try {               
             System.out.println("Enter the Notification you want to send.! ");
-            note = inp.nextLine();
-            BufferedWriter FWriter = new BufferedWriter(new FileWriter(notePath, true));
-            FWriter.write(note + "\n");
-            System.out.println(note + " has been written!");
+            BuildingStatus.note = inp.nextLine();
+            BufferedWriter FWriter = new BufferedWriter(new FileWriter(BuildingStatus.notePath, true));
+            FWriter.write(BuildingStatus.counterNote++ + ", " + BuildingStatus.note + "\n");
+            System.out.println("\"" + BuildingStatus.note + "\"" + " has been written!");
             FWriter.close();
         } catch (IOException ex) {
             System.out.println("Error writing.");
@@ -139,9 +141,10 @@ public class Proctor extends Person {
     }
    
     void updateBldgStat(){
+        System.out.println("You can update the status of your building. Choose and use '0' if unavailable and '1' if available.");
         System.out.println("1: Water");
         System.out.println("2: Electricity");
-        System.out.println("3: Proctor Available nearby");
+//        System.out.println("//3: Proctor Available nearby");
         System.out.println("0: Back");
         int bldgVal = inp.nextInt();
         
@@ -165,18 +168,19 @@ public class Proctor extends Person {
             }
         }
         void updateWater(){
+                System.out.println("Current status: ");
                 System.out.println("0: No Water");
                 System.out.println("1: Water Available");
                     int watVal = inp.nextInt();
 
                     switch (watVal) {
                         case 0:
-                            water = 0;
+                            BuildingStatus.water = 0;
                             System.out.println("No Water! Status Added!");
                             updateBldgStat();
                             break;
                         case 1:
-                            water = 1;
+                            BuildingStatus.water = 1;
                             System.out.println("Water Available! Status Added!");
                             updateBldgStat();
                             break;  
@@ -192,13 +196,13 @@ public class Proctor extends Person {
 
                     switch (elecVal) {
                         case 0:
-                            electricity = 0;
+                            BuildingStatus.electricity = 0;
                             System.out.println("No Electricity! Status Added!");
                             System.out.println("================================");
                             updateBldgStat();
                             break;
                         case 1:
-                            electricity = 1;
+                            BuildingStatus.electricity = 1;
                             System.out.println("Electricity is on! Status Added!");
                             System.out.println("================================");
                             updateBldgStat();
@@ -214,6 +218,7 @@ public class Proctor extends Person {
         System.out.println("Do not try to execuse your faults, try to CORRECT them!");
         System.out.println("1: Record Faults");
         System.out.println("2: Erase Faults");
+        System.out.println("3: Watch Record Lists");
         System.out.println("0: Back") ;
         int recVal = inp.nextInt();
         
@@ -229,6 +234,17 @@ public class Proctor extends Person {
                 eraseFaults();
                 index();
                 break;
+            case 3:
+                try {
+                BufferedReader MajFaultRead = new BufferedReader(new FileReader (majFPath));
+                while((BuildingStatus.MajFault =MajFaultRead.readLine()) != null){
+                    System.out.println(BuildingStatus.MajFault);
+                }                     
+                MajFaultRead.close();
+                }
+                catch (IOException ex){
+                    System.out.println("Read Error: " + ex);
+                }
             default:
                 faults();
                 break;
@@ -236,11 +252,12 @@ public class Proctor extends Person {
     }
         void recordFaults(){
             System.out.println("Enter ID number");
-            faultStudId = inp.next();
+            BuildingStatus.faultStudId = inp.next();
                 
             System.out.println("Fault Types");
             System.out.println("1: Minor Faults");
             System.out.println("2: Major Faults") ;
+
             System.out.println("0: Back") ;
                 int recVal = inp.nextInt();
                     try {
@@ -250,17 +267,20 @@ public class Proctor extends Person {
                                     faults();
                                     break;
                                 case 1:
-                                    faultType = 1;
-                                    BufferedWriter FWriter = new BufferedWriter(new FileWriter(majFPath, true));
-                                    System.out.println("Student, " + faultStudId + ",  is recorded with a minor fault. ");
-                                    FWriter.write(faultStudId + "\n");
+                                    BuildingStatus.faultType = 1;
+                                    BufferedWriter FWriter = new BufferedWriter(new FileWriter(BuildingStatus.majFPath, true));
+                                    System.out.println("Student, " + BuildingStatus.faultStudId + ",  is recorded with a minor fault. ");
+                                    FWriter.write(BuildingStatus.faultStudId + "\n");
+                                    FWriter.close();
                                     break;
                                 case 2:
-                                    faultType = 2;
-                                    BufferedWriter F1Writer = new BufferedWriter(new FileWriter(minFPath, true));
-                                    System.out.println("Student, " + faultStudId + ",  is recorded with a MAJOR fault. Take Care!");
-                                    F1Writer.write(faultStudId + "\n");
+                                    BuildingStatus.faultType = 2;
+                                    BufferedWriter F1Writer = new BufferedWriter(new FileWriter(BuildingStatus.minFPath, true));
+                                    System.out.println("Student, " + BuildingStatus.faultStudId + ",  is recorded with a MAJOR fault. Take Care!");
+                                    F1Writer.write(BuildingStatus.faultStudId + "\n");
+                                    F1Writer.close();
                                     break;
+                                
                                 default:
                                     System.out.println("Invalid Input!");
                                     recordFaults();
@@ -273,7 +293,8 @@ public class Proctor extends Person {
                                 // send the data to the database
                 }
         void eraseFaults(){
-            
+            System.out.println("On Dev");
+            faults();
         }
             
 }
